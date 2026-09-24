@@ -106,12 +106,15 @@ if predict_button:
         shap_values = shap_values_raw
         expected_value = explainer.expected_value
 
+    # Human-readable labels (original text) for the chart, instead of internal encoded numbers
+    display_row = input_df.iloc[0].copy()
+
     fig, ax = plt.subplots(figsize=(10, 5))
     shap.plots.waterfall(
         shap.Explanation(
             values=shap_values[0],
             base_values=expected_value,
-            data=input_encoded.iloc[0],
+            data=display_row,
             feature_names=feature_names
         ),
         show=False
